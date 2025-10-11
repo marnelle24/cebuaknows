@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import MapDisplay from '@/components/MapDisplay'
 import ClientOnly from '@/components/ClientOnly'
@@ -43,25 +44,35 @@ const HomePage: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section with Map */}
       <section className="relative">
-        <div className="max-w-5xl mx-auto px-4 lg:py-16 py-8">
+        <div className="max-w-5xl mx-auto px-4 lg:py-16 py-0">
           
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-start justify-start gap-0 lg:gap-12">
             {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center lg:text-left flex-1"
+              className="text-left lg:text-left flex-1 flex flex-col items-start justify-start"
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
-                Explore{' '}
-                <span className="bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] bg-clip-text text-transparent">
-                  Cebu
-                </span>
-              </h1>
-              <p className="text-xl text-gray-600 max-w-2xl lg:max-w-none">
-                Click on any region to discover amazing places, local attractions, and hidden gems throughout Cebu Province
-              </p>
+              <Image
+                alt="CebuaKnows"
+                src="/logo2.png"
+                width={400}
+                height={60}
+                className="z-20 transition-all duration-300 w-full lg:mt-16 mt-0"
+                priority
+              />
+              <div className="flex flex-col lg:mt-28 mt-12">
+                <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                  Explore{' '}
+                  <span className="bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] bg-clip-text text-transparent">
+                    Cebu
+                  </span>
+                </h1>
+                <p className="text-md lg:text-xl tracking-wide text-gray-600 max-w-2xl lg:max-w-none mt-3">
+                  Click on any region to discover amazing places, local attractions, and hidden gems throughout Cebu Province
+                </p>
+              </div>
             </motion.div>
 
             {/* Map Display */}
@@ -69,7 +80,7 @@ const HomePage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex justify-center flex-1 w-full lg:w-auto"
+              className="flex justify-center flex-1 w-full lg:w-auto lg:pt-28 pt-2"
             >
               <ClientOnly fallback={
                 <div className="relative w-full aspect-[213/466] max-w-xl mx-auto">

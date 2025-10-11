@@ -23,7 +23,7 @@ const SideBarNavigation: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         type="button"
-        className="fixed right-0 lg:top-8 top-24 -translate-y-1/2 flex items-center justify-center p-3 bg-amber-300/70 hover:bg-amber-300/80 cursor-pointer backdrop-blur-xl transition-all duration-300 rounded-l-lg border-l border-t border-b border-white/20 z-50 shadow-lg"
+        className="fixed right-0 lg:top-8 top-8 -translate-y-1/2 flex items-center justify-center p-3 bg-amber-300/70 hover:bg-amber-300/80 cursor-pointer backdrop-blur-xl transition-all duration-300 rounded-l-lg border-l border-t border-b border-white/20 z-50 shadow-lg"
         onClick={toggleSidebar}
       >
         <motion.div

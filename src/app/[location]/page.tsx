@@ -130,7 +130,7 @@ const LocationPage: React.FC = () => {
               {formatLocationName(location)}
             </h1>
           </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="lg:text-xl text-md text-gray-600 max-w-2xl mx-auto">
             What are you looking for in {formatLocationName(location)}?
           </p>
         </motion.div>

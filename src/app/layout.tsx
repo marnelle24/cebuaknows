@@ -31,11 +31,11 @@ export default function RootLayout({
         <div className="min-h-screen bg-gradient-to-br from-[#E0FCF6] via-[#E0FCF6] to-[#B8F5E8]" suppressHydrationWarning>
           <ClientOnly>
             <ErrorBoundary>
-              <header className="max-w-7xl mx-auto flex justify-center items-center">
+              {/* <header className="max-w-7xl mx-auto flex justify-center items-center">
                 <ErrorBoundary>
                   <HeaderDisplay msg="Everything you need to know about Cebu" />
                 </ErrorBoundary>
-              </header>
+              </header> */}
               
               <ErrorBoundary>
                 <SideBarNavigation />
