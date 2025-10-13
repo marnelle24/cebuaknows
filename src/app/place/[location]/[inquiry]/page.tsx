@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   ArrowLeft, 
   MapPin, 
@@ -23,30 +24,22 @@ interface PlaceResult {
   rating?: number
 }
 
-const PlaceInquiryPage: React.FC = () => {
-  const params = useParams()
-  const location = params.location as string
-  const inquiry = params.inquiry as string
+// Helper functions
+const formatLocationName = (name: string): string => {
+  if (!name) return ''
   
-  const [results, setResults] = useState<PlaceResult[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  const formatLocationName = (name: string): string => {
-    if (!name) return ''
-    
-    if (name.includes('-city')) {
-      return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-    }
-    
-    return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ')
-  }
-
-  const formatInquiryName = (name: string): string => {
+  if (name.includes('-city')) {
     return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   }
+  
+  return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ')
+}
 
-  const generateMockResults = (inquiryType: string, locationName: string): PlaceResult[] => {
+const formatInquiryName = (name: string): string => {
+  return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
+
+const generateMockResults = (inquiryType: string, locationName: string): PlaceResult[] => {
     const baseResults = {
       'hotels': [
         {
@@ -114,7 +107,16 @@ const PlaceInquiryPage: React.FC = () => {
         rating: 4.5
       }
     ]
-  }
+}
+
+const PlaceInquiryPage: React.FC = () => {
+  const params = useParams()
+  const location = params.location as string
+  const inquiry = params.inquiry as string
+  
+  const [results, setResults] = useState<PlaceResult[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   // Simulate API call with mock data
   useEffect(() => {
@@ -137,7 +139,7 @@ const PlaceInquiryPage: React.FC = () => {
     }
 
     fetchResults()
-  }, [location, inquiry, generateMockResults])
+  }, [location, inquiry])
 
   const handleRetry = () => {
     setResults([])
@@ -154,17 +156,29 @@ const PlaceInquiryPage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex justify-center mb-12"
+        >
+          {/* 
+            Note: The `Image` component from 'next/image' needs to be imported.
+            Please add `import Image from 'next/image';` at the top of the file
+            if it's not already present.
+          */}
+          <Image
+            alt="CebuaKnows"
+            src="/logo2.png"
+            width={250}
+            height={100}
+            className="z-20 transition-all duration-300 lg:w-1/2 w-full"
+            priority
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <Link
-            href={`/${location}`}
-            className="inline-flex items-center gap-2 text-[#F7AE1D] hover:text-[#FFB84D] transition-colors duration-200 mb-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Back to {formatLocationName(location)}
-          </Link>
-          
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
               {formatInquiryName(inquiry)} in {formatLocationName(location)}
@@ -312,6 +326,26 @@ const PlaceInquiryPage: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
+      
+      <AnimatePresence>
+        {!loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-center py-12"
+          >
+            <Link
+              href={`/${location}`}
+              className="flex justify-center mt-10 text-center items-center gap-2 text-[#F7AE1D] hover:text-[#FFB84D] transition-colors duration-200 mb-4"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back to {formatLocationName(location)}
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   )
 }

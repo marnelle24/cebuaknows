@@ -4,6 +4,7 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   Hotel, 
   Coffee, 
@@ -117,6 +118,26 @@ const LocationPage: React.FC = () => {
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex justify-center mb-12"
+        >
+          {/* 
+            Note: The `Image` component from 'next/image' needs to be imported.
+            Please add `import Image from 'next/image';` at the top of the file
+            if it's not already present.
+          */}
+          <Image
+            alt="CebuaKnows"
+            src="/logo2.png"
+            width={250}
+            height={100}
+            className="z-20 transition-all duration-300 lg:w-1/2 w-full"
+            priority
+          />
+        </motion.div>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

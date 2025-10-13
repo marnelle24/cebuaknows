@@ -71,7 +71,7 @@ const MapDisplay: React.FC = () => {
       
       // Only reset zoom if we're on the homepage (not on a specific region page)
       if (!hasLocationParam && !hasPlaceParam) {
-        const defaultScale = isMobile ? 1.0 : 1.60
+        const defaultScale = isMobile ? 1.0 : 1.65
         setScale(defaultScale)
       }
     }
@@ -122,7 +122,7 @@ const MapDisplay: React.FC = () => {
     const centerY = bbox.y + bbox.height / 2
 
     // Define the zoom level (25% zoom in for better visual effect)
-    const zoomScale = 1
+    const zoomScale = 1.5
 
     // Animate zoom and pan simultaneously
     setScale(zoomScale)
