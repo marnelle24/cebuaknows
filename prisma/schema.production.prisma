@@ -1,0 +1,61 @@
+// Production Schema for Supabase (PostgreSQL)
+// This is a copy of the main schema with PostgreSQL provider
+// Use this for production deployments with Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Role Model
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique // 'user', 'publisher', 'administrator'
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  users       User[]
+}
+
+// User Model
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  firstName String?
+  lastName  String?
+  roleId    Int      @default(1) // Default to 'user' role
+  role      Role     @relation(fields: [roleId], references: [id])
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([username])
+  @@index([roleId])
+}
+
+// Category Model - stores services from location page
+model Category {
+  id          Int      @id @default(autoincrement())
+  query       String   @unique // URL-friendly identifier (e.g., 'hotels', 'coffee-shops')
+  label       String   // Display name (e.g., 'Hotels', 'Coffee Shops')
+  keyphrase   String   // SEO keyphrase (e.g., 'top-hotels', 'top-coffee-shops')
+  description String?  // Description of the category
+  icon        String?  // Icon name or identifier
+  color       String?  // Color theme (e.g., 'from-blue-500 to-blue-600')
+  prompt      String?  // AI prompt template for this category
+  isActive    Boolean  @default(true)
+  displayOrder Int     @default(0) // For ordering in UI
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([query])
+  @@index([isActive])
+}
+
