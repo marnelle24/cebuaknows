@@ -75,6 +75,14 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
           category: 'Specialty Coffee',
           highlights: 'Specialty drinks, Vegan options, Study-friendly',
           rating: 4.4
+        },
+        {
+          name: 'Sage Spanish Latte Cafe',
+          description: 'Coffee shop with a cozy atmosphere and great coffee.',
+          address: `Downtown, ${formatLocationName(locationName)}`,
+          category: 'Specialty Coffee',
+          highlights: 'Specialty drinks, Local Latte, cozy atmosphere',
+          rating: 4.4
         }
       ],
       'tourist-spots': [
@@ -126,7 +134,7 @@ const PlaceInquiryPage: React.FC = () => {
 
       try {
         // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 500))
 
         // Mock data based on inquiry type
         const mockResults: PlaceResult[] = generateMockResults(inquiry, location)
@@ -151,7 +159,7 @@ const PlaceInquiryPage: React.FC = () => {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto md:px-4 px-2">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -164,14 +172,16 @@ const PlaceInquiryPage: React.FC = () => {
             Please add `import Image from 'next/image';` at the top of the file
             if it's not already present.
           */}
-          <Image
-            alt="CebuaKnows"
-            src="/logo2.png"
-            width={250}
-            height={100}
-            className="z-20 transition-all duration-300 lg:w-1/2 w-full"
-            priority
-          />
+          <Link href="/" className="z-20 hover:scale-105 transition-all duration-600 lg:w-1/2 w-full">
+            <Image
+              alt="CebuaKnows"
+              src="/logo2.png"
+              width={250}
+              height={100}
+              className="w-full h-full object-contain"
+              priority
+            />
+          </Link>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -180,10 +190,10 @@ const PlaceInquiryPage: React.FC = () => {
           className="mb-8"
         >
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
               {formatInquiryName(inquiry)} in {formatLocationName(location)}
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="md:text-lg text-md text-gray-600">
               Discover the best {formatInquiryName(inquiry).toLowerCase()} in the area
             </p>
           </div>
@@ -235,71 +245,86 @@ const PlaceInquiryPage: React.FC = () => {
         </AnimatePresence>
 
         {/* Results */}
+        
         <AnimatePresence>
           {!loading && !error && results.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="grid gap-6"
+              className="grid grid-cols-1 md:grid-cols-4 gap-6"
             >
               {results.map((result, index) => (
-                <motion.div
+                <Link
+                  href={`/place/${location}/${result.name}`}
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                  className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
+                  className="group cursor-pointer hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  <div className="flex flex-col md:flex-row md:items-start gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-xl font-bold text-gray-800 mb-1">
-                          {result.name}
-                        </h3>
-                        {result.rating && (
-                          <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-full">
-                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                            <span className="text-sm font-medium text-yellow-700">
-                              {result.rating}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <p className="text-gray-600 mb-3 leading-relaxed">
-                        {result.description}
-                      </p>
-                      
-                      {result.address && (
-                        <div className="flex items-center gap-2 text-gray-500 mb-2">
-                          <MapPin className="w-4 h-4" />
-                          <span className="text-sm">{result.address}</span>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                    className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
+                  >
+                    {/* Thumbnail Image Placeholder */}
+                    <div className="relative w-full h-56 bg-gray-200 rounded-t-xl mb-4 flex items-center justify-center overflow-hidden">
+                      {result.rating && (
+                        <div className="absolute top-4 right-4 flex items-center gap-1 bg-yellow-200 px-2 py-1 rounded-full">
+                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                          <span className="text-sm font-medium text-yellow-700">
+                            {result.rating}
+                          </span>
                         </div>
                       )}
-                      
-                      {result.category && (
-                        <div className="inline-block bg-[#F7AE1D]/10 text-[#F7AE1D] px-3 py-1 rounded-full text-sm font-medium mb-3">
-                          {result.category}
-                        </div>
-                      )}
-                      
-                      {result.highlights && (
-                        <div className="text-sm text-gray-600">
-                          <strong>Highlights:</strong> {result.highlights}
-                        </div>
-                      )}
+                      <Image
+                        src="/logo.png"
+                        alt={`${result.name} thumbnail`}
+                        width={200}
+                        height={200}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     
-                    <div className="flex flex-col gap-2">
-                      <button className="flex items-center gap-2 bg-[#F7AE1D] hover:bg-[#FFB84D] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
-                        <ExternalLink className="w-4 h-4" />
-                        View Details
-                      </button>
+                    <div className="flex flex-col md:items-start gap-2 px-6 py-2">
+                      <div className="flex-1">
+                        <div className="flex flex-col items-start justify-between mb-3">
+                          <h3 className="text-xl truncate font-bold text-gray-800 mb-1">
+                            {result.name}
+                          </h3>
+                          {result.address && (
+                            <div className="flex items-center gap-2 text-gray-500 mb-2">
+                              <MapPin className="w-4 h-4" />
+                              <span className="text-sm">{result.address}</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <p className="text-gray-600 mb-3 text-sm leading-tight max-h-20 overflow-hidden">
+                          {result.description}
+                        </p>
+                        
+                        {result.highlights && (
+                          <div className="text-sm text-gray-600 mb-3">
+                            <p className="font-bold">Highlights:</p> {result.highlights}
+                          </div>
+                        )}
+
+                        {result.category && (
+                          <div className="inline-block bg-[#F7AE1D]/10 text-[#F7AE1D] px-3 py-1 rounded-full text-sm font-medium mb-3">
+                            {result.category}
+                          </div>
+                        )}
+                      </div>                    
+                      {/* <div className="flex flex-col gap-2">
+                        <button className="flex items-center text-sm gap-2 bg-[#F7AE1D]/90 hover:bg-[#F7AE1D] cursor-pointer hover:scale-105 transition-all duration-300 text-white font-medium py-2 px-4 rounded-lg">
+                          <ExternalLink className="w-4 h-4" />
+                          View Details
+                        </button>
+                      </div> */}
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               ))}
             </motion.div>
           )}

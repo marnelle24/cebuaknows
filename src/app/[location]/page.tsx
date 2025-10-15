@@ -69,14 +69,16 @@ const LocationPage: React.FC = () => {
             Please add `import Image from 'next/image';` at the top of the file
             if it's not already present.
           */}
-          <Image
-            alt="CebuaKnows"
-            src="/logo2.png"
-            width={250}
-            height={100}
-            className="z-20 transition-all duration-300 lg:w-1/2 w-full"
-            priority
-          />
+          <Link href="/" className="z-20 hover:scale-105 transition-all duration-600 lg:w-1/2 w-full">
+            <Image
+              alt="CebuaKnows"
+              src="/logo2.png"
+              width={250}
+              height={100}
+              className="w-full h-full object-contain"
+              priority
+            />
+          </Link>
         </motion.div>
         {/* Header */}
         <motion.div
