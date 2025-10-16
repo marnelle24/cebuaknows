@@ -23,7 +23,7 @@ const SideBarNavigation: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         type="button"
-        className="fixed right-0 lg:top-8 top-8 -translate-y-1/2 flex items-center justify-center p-3 bg-amber-300/70 hover:bg-amber-300/80 cursor-pointer backdrop-blur-xl transition-all duration-300 rounded-l-lg border-l border-t border-b border-white/20 z-50 shadow-lg"
+        className="fixed right-0 lg:top-8 top-8 -translate-y-1/2 flex items-center justify-center opacity-80 p-3 bg-amber-300/30 hover:bg-amber-300/40 cursor-pointer backdrop-blur-xl transition-all duration-300 rounded-l-lg border-l border-t border-b border-white/20 z-50 shadow-lg"
         onClick={toggleSidebar}
       >
         <motion.div
@@ -116,8 +116,8 @@ const SideBarNavigation: React.FC = () => {
                 transition={{ delay: 0.3 }}
                 className="text-center text-white/70 text-sm"
               >
-                <p>Everything you need to know about Cebu</p>
-                <p className="mt-2 text-[#F7AE1D]">CebuaKnows React</p>
+                <p className="text-xs mb-1">© 2025 CebuaKnows. All rights reserved.</p>
+                <p className="text-[#F7AE1D]/60 text-xs">CebuaKnows v1.0</p>
               </motion.div>
             </div>
           </motion.aside>

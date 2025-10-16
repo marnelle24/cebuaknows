@@ -12,11 +12,11 @@ import {
   Clock, 
   RefreshCw,
   AlertCircle,
-  ExternalLink
 } from 'lucide-react'
 
 interface PlaceResult {
   name: string
+  slug: string
   description: string
   address?: string
   category?: string
@@ -44,6 +44,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
       'hotels': [
         {
           name: `Grand ${formatLocationName(locationName)} Hotel`,
+          slug: 'grand-cebu-hotel',
           description: 'Luxury hotel with stunning ocean views and world-class amenities.',
           address: `Main Street, ${formatLocationName(locationName)}`,
           category: 'Luxury Hotel',
@@ -52,6 +53,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
         },
         {
           name: `${formatLocationName(locationName)} Beach Resort`,
+          slug: 'cebu-beach-resort',
           description: 'Beachfront resort perfect for families and couples.',
           address: `Beach Road, ${formatLocationName(locationName)}`,
           category: 'Beach Resort',
@@ -62,6 +64,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
       'coffee-shops': [
         {
           name: `Café ${formatLocationName(locationName)}`,
+          slug: 'cafe-cebu',
           description: 'Cozy local coffee shop with freshly roasted beans and homemade pastries.',
           address: `Central Plaza, ${formatLocationName(locationName)}`,
           category: 'Coffee Shop',
@@ -70,6 +73,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
         },
         {
           name: 'Brew & Beans',
+          slug: 'brew-beans',
           description: 'Modern coffee house with specialty drinks and light meals.',
           address: `Downtown, ${formatLocationName(locationName)}`,
           category: 'Specialty Coffee',
@@ -78,6 +82,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
         },
         {
           name: 'Sage Spanish Latte Cafe',
+          slug: 'sage-spanish-latte-cafe',
           description: 'Coffee shop with a cozy atmosphere and great coffee.',
           address: `Downtown, ${formatLocationName(locationName)}`,
           category: 'Specialty Coffee',
@@ -88,6 +93,7 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
       'tourist-spots': [
         {
           name: `${formatLocationName(locationName)} Heritage Park`,
+          slug: 'heritage-park',
           description: 'Historical park showcasing local culture and traditions.',
           address: `Heritage District, ${formatLocationName(locationName)}`,
           category: 'Historical Site',
@@ -95,7 +101,8 @@ const generateMockResults = (inquiryType: string, locationName: string): PlaceRe
           rating: 4.7
         },
         {
-          name: `${formatLocationName(locationName)} Viewpoint`,
+          name: `${formatLocationName(locationName)} Viewpoint`,  
+          slug: 'cebu-viewpoint',
           description: 'Scenic viewpoint offering panoramic views of the surrounding area.',
           address: `Hilltop Road, ${formatLocationName(locationName)}`,
           category: 'Scenic Viewpoint',
@@ -256,9 +263,9 @@ const PlaceInquiryPage: React.FC = () => {
             >
               {results.map((result, index) => (
                 <Link
-                  href={`/place/${location}/${result.name}`}
+                  href={`/place/${location}/${inquiry}/${result.slug}`}
                   key={index}
-                  className="group cursor-pointer hover:-translate-y-0.5 transition-all duration-300"
+                  className="group hover:drop-shadow-lg cursor-pointer hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -268,7 +275,7 @@ const PlaceInquiryPage: React.FC = () => {
                     className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20"
                   >
                     {/* Thumbnail Image Placeholder */}
-                    <div className="relative w-full h-56 bg-gray-200 rounded-t-xl mb-4 flex items-center justify-center overflow-hidden">
+                    <div className="relative w-full h-56 bg-gray-200 rounded-t-xl flex items-center justify-center overflow-hidden">
                       {result.rating && (
                         <div className="absolute top-4 right-4 flex items-center gap-1 bg-yellow-200 px-2 py-1 rounded-full">
                           <Star className="w-4 h-4 text-yellow-500 fill-current" />
@@ -286,10 +293,10 @@ const PlaceInquiryPage: React.FC = () => {
                       />
                     </div>
                     
-                    <div className="flex flex-col md:items-start gap-2 px-6 py-2">
+                    <div className="group-hover:bg-[#F7AE1D]/5 duration-300 flex flex-col md:items-start gap-2 px-6 py-2">
                       <div className="flex-1">
                         <div className="flex flex-col items-start justify-between mb-3">
-                          <h3 className="text-xl truncate font-bold text-gray-800 mb-1">
+                          <h3 className="text-xl font-bold text-gray-800 mb-1">
                             {result.name}
                           </h3>
                           {result.address && (
@@ -300,7 +307,7 @@ const PlaceInquiryPage: React.FC = () => {
                           )}
                         </div>
                         
-                        <p className="text-gray-600 mb-3 text-sm leading-tight max-h-20 overflow-hidden">
+                        <p className="text-gray-600 mb-3 text-sm leading-tight line-clamp-2">
                           {result.description}
                         </p>
                         
