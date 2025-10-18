@@ -1,16 +1,19 @@
 // ==================== User Types ====================
 
 export type UserWithRole = {
-  id: number
+  id: string
   email: string
   username: string
-  password: string
+  password: string | null
   firstName: string | null
   lastName: string | null
   roleId: number
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  name: string | null
+  image: string | null
+  emailVerified: Date | null
   role: {
     id: number
     name: string

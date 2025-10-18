@@ -2,14 +2,21 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Home, Info } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
+import { Menu, X, Home, Info, User, LogIn, LogOut } from 'lucide-react'
 import Link from 'next/link'
 
 const SideBarNavigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { data: session } = useSession()
 
   const toggleSidebar = () => setIsOpen(!isOpen)
   const closeSidebar = () => setIsOpen(false)
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/' })
+    closeSidebar()
+  }
 
   const menuItems = [
     { href: '/', label: 'Home', icon: <Home className="w-5 h-5" /> },
@@ -105,6 +112,88 @@ const SideBarNavigation: React.FC = () => {
                     </Link>
                   </motion.li>
                 ))}
+
+                {/* Authentication Section */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-4 border-t border-white/10 mt-6"
+                >
+                  {session ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 px-4 py-3 text-white/80">
+                        <User className="w-5 h-5 text-[#F7AE1D]" />
+                        <div>
+                          <p className="font-medium">{session.user?.name}</p>
+                          <p className="text-xs text-white/60 capitalize">{(session.user as { role?: string })?.role}</p>
+                        </div>
+                      </div>
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center gap-3 px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-all duration-200 group"
+                        onClick={closeSidebar}
+                      >
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="text-[#F7AE1D] group-hover:text-[#FFB84D] transition-colors duration-200"
+                        >
+                          <User className="w-5 h-5" />
+                        </motion.div>
+                        <span className="font-medium group-hover:text-[#F7AE1D] transition-colors duration-200">
+                          Dashboard
+                        </span>
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 px-4 py-3 text-white hover:bg-red-500/20 rounded-lg transition-all duration-200 group w-full"
+                      >
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="text-red-400 group-hover:text-red-300 transition-colors duration-200"
+                        >
+                          <LogOut className="w-5 h-5" />
+                        </motion.div>
+                        <span className="font-medium group-hover:text-red-300 transition-colors duration-200">
+                          Sign Out
+                        </span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <Link
+                        href="/login"
+                        className="flex items-center gap-3 px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-all duration-200 group"
+                        onClick={closeSidebar}
+                      >
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="text-[#F7AE1D] group-hover:text-[#FFB84D] transition-colors duration-200"
+                        >
+                          <LogIn className="w-5 h-5" />
+                        </motion.div>
+                        <span className="font-medium group-hover:text-[#F7AE1D] transition-colors duration-200">
+                          Sign In
+                        </span>
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] text-white hover:from-[#FFB84D] hover:to-[#F7AE1D] rounded-lg transition-all duration-200 group"
+                        onClick={closeSidebar}
+                      >
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="text-white group-hover:text-white transition-colors duration-200"
+                        >
+                          <User className="w-5 h-5" />
+                        </motion.div>
+                        <span className="font-medium">
+                          Sign Up
+                        </span>
+                      </Link>
+                    </div>
+                  )}
+                </motion.div>
               </ul>
             </nav>
 

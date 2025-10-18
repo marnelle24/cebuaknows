@@ -8,7 +8,8 @@ import {
   Waves,
   Building,
   Users,
-  LucideIcon
+  LucideIcon,
+  University,
 } from 'lucide-react'
 
 export const iconMap: Record<string, LucideIcon> = {
@@ -21,6 +22,7 @@ export const iconMap: Record<string, LucideIcon> = {
   Waves,
   Building,
   Users,
+  University,
 }
 
 export function getIcon(iconName: string): LucideIcon | null {

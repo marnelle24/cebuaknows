@@ -63,13 +63,13 @@ const HomePage: React.FC = () => {
                 priority
               />
               <div className="flex flex-col lg:mt-28 mt-12">
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                <h1 className="lg:text-6xl text-4xl  font-bold text-gray-800 mb-2 lg:text-left text-center">
                   Explore{' '}
                   <span className="bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] bg-clip-text text-transparent">
                     Cebu
                   </span>
                 </h1>
-                <p className="text-md lg:text-xl tracking-wide text-gray-600 max-w-2xl lg:max-w-none mt-3">
+                <p className="text-md lg:text-xl lg:text-left text-center tracking-wide text-gray-600 max-w-2xl lg:max-w-none mt-3">
                   Click on any region to discover amazing places, local attractions, and hidden gems throughout Cebu Province
                 </p>
               </div>
