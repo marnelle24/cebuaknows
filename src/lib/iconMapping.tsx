@@ -10,6 +10,9 @@ import {
   Users,
   LucideIcon,
   University,
+  Briefcase,
+  House,
+  Store,
 } from 'lucide-react'
 
 export const iconMap: Record<string, LucideIcon> = {
@@ -23,6 +26,9 @@ export const iconMap: Record<string, LucideIcon> = {
   Building,
   Users,
   University,
+  Briefcase,
+  House,
+  Store,
 }
 
 export function getIcon(iconName: string): LucideIcon | null {

@@ -13,8 +13,10 @@ import {
   Activity,
   LogOut,
   Menu,
-  X
+  X,
+  Tag
 } from 'lucide-react'
+import CategoryManagement from '@/components/admin/CategoryManagement'
 
 interface DashboardStats {
   totalUsers: number
@@ -29,6 +31,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [currentView, setCurrentView] = useState<'dashboard' | 'categories' | 'users'>('dashboard')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -96,22 +99,39 @@ export default function AdminDashboard() {
               <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
             </div>
             <nav className="mt-5 px-2 space-y-1">
-              <a href="#" className="bg-blue-100 text-blue-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+              <button
+                onClick={() => setCurrentView('dashboard')}
+                className={`w-full text-left group flex items-center px-2 py-2 text-base font-medium rounded-md ${
+                  currentView === 'dashboard' 
+                    ? 'bg-blue-100 text-blue-900' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
+              >
                 <BarChart3 className="mr-4 h-6 w-6" />
-                Analytics
-              </a>
-              <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                Dashboard
+              </button>
+              <button
+                onClick={() => setCurrentView('categories')}
+                className={`w-full text-left group flex items-center px-2 py-2 text-base font-medium rounded-md ${
+                  currentView === 'categories' 
+                    ? 'bg-blue-100 text-blue-900' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
+              >
+                <Tag className="mr-4 h-6 w-6" />
+                Categories
+              </button>
+              <button
+                onClick={() => setCurrentView('users')}
+                className={`w-full text-left group flex items-center px-2 py-2 text-base font-medium rounded-md ${
+                  currentView === 'users' 
+                    ? 'bg-blue-100 text-blue-900' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
+              >
                 <Users className="mr-4 h-6 w-6" />
                 User Management
-              </a>
-              <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
-                <Shield className="mr-4 h-6 w-6" />
-                Categories
-              </a>
-              <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
-                <Settings className="mr-4 h-6 w-6" />
-                Settings
-              </a>
+              </button>
             </nav>
           </div>
         </div>
@@ -126,22 +146,39 @@ export default function AdminDashboard() {
                 <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
               </div>
               <nav className="mt-5 flex-1 px-2 space-y-1">
-                <a href="#" className="bg-blue-100 text-blue-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                <button
+                  onClick={() => setCurrentView('dashboard')}
+                  className={`w-full text-left group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                    currentView === 'dashboard' 
+                      ? 'bg-blue-100 text-blue-900' 
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
                   <BarChart3 className="mr-3 h-5 w-5" />
-                  Analytics
-                </a>
-                <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                  Dashboard
+                </button>
+                <button
+                  onClick={() => setCurrentView('categories')}
+                  className={`w-full text-left group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                    currentView === 'categories' 
+                      ? 'bg-blue-100 text-blue-900' 
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
+                  <Tag className="mr-3 h-5 w-5" />
+                  Categories
+                </button>
+                <button
+                  onClick={() => setCurrentView('users')}
+                  className={`w-full text-left group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                    currentView === 'users' 
+                      ? 'bg-blue-100 text-blue-900' 
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
                   <Users className="mr-3 h-5 w-5" />
                   User Management
-                </a>
-                <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                  <Shield className="mr-3 h-5 w-5" />
-                  Categories
-                </a>
-                <a href="#" className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                  <Settings className="mr-3 h-5 w-5" />
-                  Settings
-                </a>
+                </button>
               </nav>
             </div>
           </div>
@@ -167,11 +204,15 @@ export default function AdminDashboard() {
               {/* Header */}
               <div className="md:flex md:items-center md:justify-between">
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                    Welcome back, {session.user.name}
+                  <h2 className="text-2xl leading-relaxed font-bold text-gray-900 sm:text-3xl sm:truncate">
+                    {currentView === 'dashboard' && `Welcome back, ${session.user.name}`}
+                    {currentView === 'categories' && 'Category Management'}
+                    {currentView === 'users' && 'User Management'}
                   </h2>
                   <p className="mt-1 text-sm text-gray-500">
-                    Here&apos;s what&apos;s happening with your application today.
+                    {currentView === 'dashboard' && "Here's what's happening with your application today."}
+                    {currentView === 'categories' && 'Manage categories of places and services.'}
+                    {currentView === 'users' && 'View and manage user accounts, roles, and permissions.'}
                   </p>
                 </div>
                 <div className="mt-4 flex md:mt-0 md:ml-4">
@@ -185,130 +226,152 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Stats */}
-              <div className="mt-8">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-white overflow-hidden shadow rounded-lg"
-                  >
-                    <div className="p-5">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <Users className="h-6 w-6 text-gray-400" />
+              {/* Content based on current view */}
+              {currentView === 'dashboard' && (
+                <>
+                  {/* Stats */}
+                  <div className="mt-8">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-white overflow-hidden shadow rounded-lg"
+                      >
+                        <div className="p-5">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">
+                              <Users className="h-6 w-6 text-gray-400" />
+                            </div>
+                            <div className="ml-5 w ring-0 flex-1">
+                              <dl>
+                                <dt className="text-sm font-medium text-gray-500 truncate">Total Users</dt>
+                                <dd className="text-lg font-medium text-gray-900">{stats?.totalUsers || 0}</dd>
+                              </dl>
+                            </div>
+                          </div>
                         </div>
-                        <div className="ml-5 w-0 flex-1">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 truncate">Total Users</dt>
-                            <dd className="text-lg font-medium text-gray-900">{stats?.totalUsers || 0}</dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
+                      </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-white overflow-hidden shadow rounded-lg"
-                  >
-                    <div className="p-5">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <Shield className="h-6 w-6 text-gray-400" />
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="bg-white overflow-hidden shadow rounded-lg"
+                      >
+                        <div className="p-5">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">
+                              <Tag className="h-6 w-6 text-gray-400" />
+                            </div>
+                            <div className="ml-5 w-0 flex-1">
+                              <dl>
+                                <dt className="text-sm font-medium text-gray-500 truncate">Categories</dt>
+                                <dd className="text-lg font-medium text-gray-900">{stats?.totalCategories || 0}</dd>
+                              </dl>
+                            </div>
+                          </div>
                         </div>
-                        <div className="ml-5 w-0 flex-1">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 truncate">Categories</dt>
-                            <dd className="text-lg font-medium text-gray-900">{stats?.totalCategories || 0}</dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
+                      </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-white overflow-hidden shadow rounded-lg"
-                  >
-                    <div className="p-5">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <Activity className="h-6 w-6 text-gray-400" />
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="bg-white overflow-hidden shadow rounded-lg"
+                      >
+                        <div className="p-5">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">
+                              <Activity className="h-6 w-6 text-gray-400" />
+                            </div>
+                            <div className="ml-5 w-0 flex-1">
+                              <dl>
+                                <dt className="text-sm font-medium text-gray-500 truncate">Recent Activity</dt>
+                                <dd className="text-lg font-medium text-gray-900">{stats?.recentActivity || 0}</dd>
+                              </dl>
+                            </div>
+                          </div>
                         </div>
-                        <div className="ml-5 w-0 flex-1">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 truncate">Recent Activity</dt>
-                            <dd className="text-lg font-medium text-gray-900">{stats?.recentActivity || 0}</dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
+                      </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="bg-white overflow-hidden shadow rounded-lg"
-                  >
-                    <div className="p-5">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <TrendingUp className="h-6 w-6 text-gray-400" />
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="bg-white overflow-hidden shadow rounded-lg"
+                      >
+                        <div className="p-5">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0">
+                              <TrendingUp className="h-6 w-6 text-gray-400" />
+                            </div>
+                            <div className="ml-5 w-0 flex-1">
+                              <dl>
+                                <dt className="text-sm font-medium text-gray-500 truncate">Growth</dt>
+                                <dd className="text-lg font-medium text-gray-900">+12%</dd>
+                              </dl>
+                            </div>
+                          </div>
                         </div>
-                        <div className="ml-5 w-0 flex-1">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 truncate">Growth</dt>
-                            <dd className="text-lg font-medium text-gray-900">+12%</dd>
-                          </dl>
-                        </div>
-                      </div>
+                      </motion.div>
                     </div>
-                  </motion.div>
+                  </div>
+
+                  {/* Quick Actions */}
+                  <div className="mt-8">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setCurrentView('users')}
+                        className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
+                      >
+                        <Users className="h-8 w-8 text-blue-600 mb-4" />
+                        <h4 className="text-lg font-medium text-gray-900 mb-2">Manage Users</h4>
+                        <p className="text-gray-600">View and manage user accounts, roles, and permissions.</p>
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setCurrentView('categories')}
+                        className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
+                      >
+                        <Tag className="h-8 w-8 text-green-600 mb-4" />
+                        <h4 className="text-lg font-medium text-gray-900 mb-2">Category Management</h4>
+                        <p className="text-gray-600">Add, edit, or remove service categories.</p>
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
+                      >
+                        <BarChart3 className="h-8 w-8 text-purple-600 mb-4" />
+                        <h4 className="text-lg font-medium text-gray-900 mb-2">View Analytics</h4>
+                        <p className="text-gray-600">Check detailed analytics and reports.</p>
+                      </motion.button>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {currentView === 'categories' && (
+                <div className="mt-8">
+                  <CategoryManagement />
                 </div>
-              </div>
+              )}
 
-              {/* Quick Actions */}
-              <div className="mt-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
-                  >
-                    <Users className="h-8 w-8 text-blue-600 mb-4" />
-                    <h4 className="text-lg font-medium text-gray-900 mb-2">Manage Users</h4>
-                    <p className="text-gray-600">View and manage user accounts, roles, and permissions.</p>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
-                  >
-                    <Shield className="h-8 w-8 text-green-600 mb-4" />
-                    <h4 className="text-lg font-medium text-gray-900 mb-2">Category Management</h4>
-                    <p className="text-gray-600">Add, edit, or remove service categories.</p>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 text-left"
-                  >
-                    <BarChart3 className="h-8 w-8 text-purple-600 mb-4" />
-                    <h4 className="text-lg font-medium text-gray-900 mb-2">View Analytics</h4>
-                    <p className="text-gray-600">Check detailed analytics and reports.</p>
-                  </motion.button>
+              {currentView === 'users' && (
+                <div className="mt-8">
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">User Management</h3>
+                    <p className="text-gray-600">User management functionality will be implemented here.</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </main>

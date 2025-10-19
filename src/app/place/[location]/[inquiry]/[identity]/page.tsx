@@ -299,23 +299,23 @@ const PlaceDetailsPage: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex justify-center lg:my-12 my-6"
-        >
-          <Link href="/" className="z-20 hover:scale-105 transition-all duration-600 lg:w-1/2 w-full">
-            <Image
-              alt="CebuaKnows"
-              src="/logo2.png"
-              width={200}
-              height={100}
-              className="w-full h-full object-contain"
-              priority
-            />
-          </Link>
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="flex justify-center lg:my-12 my-6"
+      >
+        <Link href="/" className="z-20 hover:scale-105 transition-all duration-600 lg:w-1/2 w-full">
+          <Image
+            alt="CebuaKnows"
+            src="/logo2.png"
+            width={200}
+            height={100}
+            className="w-full h-full object-contain"
+            priority
+          />
+        </Link>
+      </motion.div>
 
       <div className="container mx-auto lg:px-4 px-2 lg:py-8 py-4">
         <Link href={`/place/${location}/${inquiry}`} className="flex items-center gap-2 mb-4 hover:-translate-y-0.5 drop-shadow transition-all duration-300 text-[#F7AE1D] hover:text-[#FFB84D]">
@@ -372,21 +372,25 @@ const PlaceDetailsPage: React.FC = () => {
               className="bg-white rounded-2xl shadow-lg p-6"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex items-start justify-between mb-4">
-                    <h1 className="text-3xl font-bold text-gray-800 leading-tight">{placeDetails.name}</h1>
-                    <div className="flex items-center gap-1">
-                      <button className="cursor-pointer p-2 text-gray-600 hover:text-[#F7AE1D] transition-colors">
-                        <Heart className="w-5 h-5" />
-                      </button>
-                      <button className="cursor-pointer p-2 text-gray-600 hover:text-[#F7AE1D] transition-colors">
-                        <Share2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-800 mb-2">{placeDetails.name}</h1>
                   <div className="flex items-center gap-2 text-[#F7AE1D] mb-2">
                     <span className="text-lg font-medium">{placeDetails.category}</span>
                   </div>
+                  {placeDetails.rating && (
+                    <div className="flex items-center gap-1">
+                      <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                      <span className="text-lg font-medium text-gray-700">{placeDetails.rating}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center gap-1">
+                  <button className="cursor-pointer p-2 text-gray-600 hover:text-[#F7AE1D] transition-colors">
+                    <Heart className="w-5 h-5" />
+                  </button>
+                  <button className="cursor-pointer p-2 text-gray-600 hover:text-[#F7AE1D] transition-colors">
+                    <Share2 className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
 
@@ -426,8 +430,8 @@ const PlaceDetailsPage: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="bg-white rounded-2xl shadow-lg p-6"
               >
-                <div className="flex items-start gap-3 mb-4">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Reviews</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-semibold text-gray-800">Reviews</h3>
                   {placeDetails.rating && (
                     <div className="flex items-center gap-1 border border-yellow-400/60 rounded-full bg-yellow-200 px-2 py-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />

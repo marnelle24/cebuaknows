@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useMapStore } from '@/stores/mapStore'
 import { motion } from 'framer-motion'
 import SkeletonLoader from './SkeletonLoader'
-import RegionModal from './RegionModal'
 import { cebuMapPaths } from '@/data/cebuMapData'
 
 const MapDisplay: React.FC = () => {
@@ -19,10 +18,6 @@ const MapDisplay: React.FC = () => {
   const router = useRouter()
   const pathname = usePathname()
   const { loading, setSelectedRegion } = useMapStore()
-
-  // Modal state
-  const [modalVisible, setModalVisible] = useState(false)
-  const [selectedRegionName, setSelectedRegionName] = useState('')
 
   // Detect screen size for responsive scale
   useEffect(() => {
@@ -106,8 +101,6 @@ const MapDisplay: React.FC = () => {
     // Navigate to the region route
     router.push(`/${regionId}`)
 
-    // Show the modal with region information
-    setSelectedRegionName(regionId)
 
     const svgMap = document.getElementById('cebuProvinceMap') as SVGSVGElement | null
     if (!svgMap) return
@@ -134,10 +127,6 @@ const MapDisplay: React.FC = () => {
     setTranslateX(newTranslateX)
     setTranslateY(newTranslateY)
 
-    // Show modal after zoom animation completes
-    setTimeout(() => {
-      setModalVisible(true)
-    }, 900) // Slightly before animation completes for smoother UX
   }, [router])
 
   // Function to highlight selected region
@@ -249,20 +238,6 @@ const MapDisplay: React.FC = () => {
     }
   }, [isClient, pathname, selectedRegion, resetMap, setSelectedRegion])
 
-  // Modal event handlers
-  const closeModal = useCallback(() => {
-    setModalVisible(false)
-    // Reset zoom when modal is closed
-    setTimeout(() => {
-      resetZoom()
-    }, 300) // Small delay to let modal close animation complete
-  }, [resetZoom])
-
-  const exploreRegion = useCallback((regionName: string) => {
-    setModalVisible(false)
-    router.push(`/${regionName}`)
-  }, [router])
-
   const handleRegionClick = useCallback((regionId: string) => {
     selectedRegion(regionId)
   }, [selectedRegion])
@@ -316,54 +291,6 @@ const MapDisplay: React.FC = () => {
           ))}
         </motion.svg>
       </motion.div>
-
-
-
-
-      
-
-      {/* Region Modal */}
-      <RegionModal 
-        isVisible={modalVisible} 
-        regionName={selectedRegionName} 
-        onClose={closeModal}
-        onExplore={exploreRegion} 
-      />
-
-      <style jsx>{`
-        .map-tooltip {
-          transition: all 0.2s ease-in-out;
-          opacity: 0;
-          transform: translate(-50%, -100%);
-          pointer-events: none;
-          display: block !important;
-          position: fixed;
-          z-index: 9999;
-          min-width: 80px;
-          text-align: center;
-          left: 0;
-          top: 0;
-        }
-
-        .map-tooltip.visible {
-          opacity: 1;
-        }
-
-        .region.selected {
-          fill: #7BEA05 !important;
-          filter: brightness(1.2) drop-shadow(0 0 8px rgba(123, 234, 5, 0.6));
-          animation: pulse-selected 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-selected {
-          0%, 100% {
-            filter: brightness(1.2) drop-shadow(0 0 8px rgba(123, 234, 5, 0.6));
-          }
-          50% {
-            filter: brightness(1.4) drop-shadow(0 0 12px rgba(123, 234, 5, 0.8));
-          }
-        }
-      `}</style>
     </div>
   )
 }
