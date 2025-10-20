@@ -118,7 +118,7 @@ const LocationPage: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Link
-                    href={`/place/${location}/${service.query}`}
+                    href={`/${location}/${service.query}`}
                     className="block group"
                   >
                     <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 group-hover:border-[#F7AE1D]/30 h-full">

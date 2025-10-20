@@ -263,7 +263,7 @@ const PlaceInquiryPage: React.FC = () => {
             >
               {results.map((result, index) => (
                 <Link
-                  href={`/place/${location}/${inquiry}/${result.slug}`}
+                  href={`/${location}/${inquiry}/${result.slug}`}
                   key={index}
                   className="group hover:drop-shadow-lg cursor-pointer hover:-translate-y-0.5 transition-all duration-300"
                 >

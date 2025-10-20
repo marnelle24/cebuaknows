@@ -288,7 +288,7 @@ const PlaceDetailsPage: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Place not found</h1>
-          <Link href={`/place/${location}/${inquiry}`} className="text-[#F7AE1D] hover:text-[#FFB84D]">
+          <Link href={`/${location}/${inquiry}`} className="text-[#F7AE1D] hover:text-[#FFB84D]">
             ← Back to results
           </Link>
         </div>
@@ -318,7 +318,7 @@ const PlaceDetailsPage: React.FC = () => {
       </motion.div>
 
       <div className="container mx-auto lg:px-4 px-2 lg:py-8 py-4">
-        <Link href={`/place/${location}/${inquiry}`} className="flex items-center gap-2 mb-4 hover:-translate-y-0.5 drop-shadow transition-all duration-300 text-[#F7AE1D] hover:text-[#FFB84D]">
+        <Link href={`/${location}/${inquiry}`} className="flex items-center gap-2 mb-4 hover:-translate-y-0.5 drop-shadow transition-all duration-300 text-[#F7AE1D] hover:text-[#FFB84D]">
           <ArrowLeft className="w-5 h-5" />
           Back to {formatInquiryName(inquiry)}
         </Link>

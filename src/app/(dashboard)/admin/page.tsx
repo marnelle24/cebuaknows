@@ -249,7 +249,7 @@ export default function AdminDashboard() {
                   </span>
                 </div>
                 <div className="mt-8">
-                  <h3 className="text-lg font-medium">
+                  <h3 className="text-lg text-slate-900 font-medium">
                     <span className="absolute inset-0" aria-hidden="true" />
                     Manage Categories
                   </h3>
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
                   </span>
                 </div>
                 <div className="mt-8">
-                  <h3 className="text-lg font-medium">
+                  <h3 className="text-lg text-slate-900 font-medium">
                     <span className="absolute inset-0" aria-hidden="true" />
                     User Management
                   </h3>
@@ -294,7 +294,7 @@ export default function AdminDashboard() {
                   </span>
                 </div>
                 <div className="mt-8">
-                  <h3 className="text-lg font-medium">
+                  <h3 className="text-lg text-slate-900 font-medium">
                     <span className="absolute inset-0" aria-hidden="true" />
                     System Settings
                   </h3>

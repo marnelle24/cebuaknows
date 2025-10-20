@@ -109,7 +109,7 @@ const RegionModal: React.FC<RegionModalProps> = ({
 
   const handleCategoryClick = useCallback((category: GreatFind) => {
     // Navigate to the place inquiry route
-    router.push(`/place/${regionName}/${category.query}`)
+    router.push(`/${regionName}/${category.query}`)
     onClose()
   }, [regionName, router, onClose])
 
