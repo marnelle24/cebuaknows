@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 // GET /api/admin/categories/[id] - Get a specific category
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -18,8 +18,9 @@ export async function GET(
       )
     }
 
+    const resolvedParams = await params
     const category = await prisma.category.findUnique({
-      where: { id: parseInt(params.id) }
+      where: { id: parseInt(resolvedParams.id) }
     })
 
     if (!category) {
@@ -45,7 +46,7 @@ export async function GET(
 // PUT /api/admin/categories/[id] - Update a category
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -60,9 +61,10 @@ export async function PUT(
     const body = await request.json()
     const { label, query, keyphrase, description, icon, color, prompt, displayOrder, isActive } = body
 
+    const resolvedParams = await params
     // Check if category exists
     const existingCategory = await prisma.category.findUnique({
-      where: { id: parseInt(params.id) }
+      where: { id: parseInt(resolvedParams.id) }
     })
 
     if (!existingCategory) {
@@ -87,7 +89,7 @@ export async function PUT(
     }
 
     const category = await prisma.category.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(resolvedParams.id) },
       data: {
         ...(label && { label }),
         ...(query && { query }),
@@ -118,7 +120,7 @@ export async function PUT(
 // DELETE /api/admin/categories/[id] - Delete a category
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -130,9 +132,10 @@ export async function DELETE(
       )
     }
 
+    const resolvedParams = await params
     // Check if category exists
     const existingCategory = await prisma.category.findUnique({
-      where: { id: parseInt(params.id) }
+      where: { id: parseInt(resolvedParams.id) }
     })
 
     if (!existingCategory) {
@@ -143,7 +146,7 @@ export async function DELETE(
     }
 
     await prisma.category.delete({
-      where: { id: parseInt(params.id) }
+      where: { id: parseInt(resolvedParams.id) }
     })
 
     return NextResponse.json({

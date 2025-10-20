@@ -2,36 +2,23 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-
-interface Category {
-  id?: number
-  label: string
-  query: string
-  keyphrase: string
-  description?: string
-  icon?: string
-  color?: string
-  prompt?: string
-  displayOrder: number
-  isActive: boolean
-}
+import { CategoryFormData } from '@/types/admin'
 
 interface CategoryFormProps {
-  category?: Category
-  onSubmit: (data: Category) => Promise<void>
+  category?: CategoryFormData
+  onSubmit: (data: CategoryFormData) => Promise<void>
   onCancel: () => void
   isLoading?: boolean
 }
 
 export default function CategoryForm({ category, onSubmit, onCancel, isLoading }: CategoryFormProps) {
-  const [formData, setFormData] = useState<Category>({
+  const [formData, setFormData] = useState<CategoryFormData>({
     label: category?.label || '',
     query: category?.query || '',
     keyphrase: category?.keyphrase || '',
     description: category?.description || '',
     icon: category?.icon || '',
     color: category?.color || '',
-    prompt: category?.prompt || '',
     displayOrder: category?.displayOrder || 0,
     isActive: category?.isActive ?? true
   })
@@ -73,7 +60,7 @@ export default function CategoryForm({ category, onSubmit, onCancel, isLoading }
     await onSubmit(formData)
   }
 
-  const handleInputChange = (field: keyof Category, value: string | number | boolean) => {
+  const handleInputChange = (field: keyof CategoryFormData, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { MapPin, Users, Heart, Globe, Star, Award } from 'lucide-react'
 
 const AboutPage: React.FC = () => {
@@ -199,13 +200,13 @@ const AboutPage: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <a
+            <Link
               href="/"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <MapPin className="w-5 h-5" />
               Start Exploring
-            </a>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

@@ -4,21 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import CategoryList from './CategoryList'
 import CategoryForm from './CategoryForm'
-
-interface Category {
-  id: number
-  label: string
-  query: string
-  keyphrase: string
-  description?: string
-  icon?: string
-  color?: string
-  prompt?: string
-  displayOrder: number
-  isActive: boolean
-  createdAt?: string
-  updatedAt?: string
-}
+import { Category, CategoryFormData } from '@/types/admin'
 
 export default function CategoryManagement() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -42,14 +28,14 @@ export default function CategoryManagement() {
       const response = await fetch(`/api/admin/categories?t=${Date.now()}`)
       const data = await response.json()
 
-      console.log('Fetch categories response:', data) // Debug log
+      // console.log('Fetch categories response:', data) // Debug log
 
       if (data.success) {
         setCategories(data.data)
         if (data.pagination) {
           setPagination(data.pagination)
         }
-        console.log('Categories updated:', data.data) // Debug log
+        // console.log('Categories updated:', data.data) // Debug log
       } else {
         setError(data.error || 'Failed to fetch categories')
       }
@@ -82,7 +68,7 @@ export default function CategoryManagement() {
   }
 
   // Handle form submission
-  const handleSubmit = async (formData: Category) => {
+  const handleSubmit = async (formData: CategoryFormData) => {
     try {
       setIsSubmitting(true)
       setError(null)
@@ -104,12 +90,12 @@ export default function CategoryManagement() {
       const data = await response.json()
 
       if (data.success) {
-        console.log('Category saved successfully:', data.data) // Debug log
+        // console.log('Category saved successfully:', data.data) // Debug log
         setSuccess(data.message || 'Category saved successfully')
         setShowForm(false)
         setEditingCategory(undefined)
         await fetchCategories() // Refresh the list
-        console.log('Categories refreshed after save') // Debug log
+        // console.log('Categories refreshed after save') // Debug log
       } else {
         setError(data.error || 'Failed to save category')
       }

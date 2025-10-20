@@ -34,7 +34,7 @@ export async function getAllUsers() {
   })
 }
 
-export async function getUserById(id: number) {
+export async function getUserById(id: string) {
   return await prisma.user.findUnique({
     where: { id },
     include: {
@@ -85,7 +85,7 @@ export async function createUser(data: {
 }
 
 export async function updateUser(
-  id: number,
+  id: string,
   data: Partial<{
     email: string
     username: string
@@ -105,7 +105,7 @@ export async function updateUser(
   })
 }
 
-export async function deleteUser(id: number) {
+export async function deleteUser(id: string) {
   return await prisma.user.delete({
     where: { id },
   })

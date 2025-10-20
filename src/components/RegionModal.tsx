@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, MapPin, Coffee, Hotel, Camera, Utensils, Church, Car } from 'lucide-react'
 import { useRouter } from 'next/navigation'
