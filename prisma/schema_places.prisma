@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file for Places and related entities
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -156,9 +156,6 @@ model Place {
   amenities   PlaceAmenity[]
   reviews     Review[]
   favorites   Favorite[]
-  businessHours BusinessHours[]
-  contactInfo ContactInfo[]
-  seo         SEO?
 
   @@index([slug])
   @@index([locationId])
