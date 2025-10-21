@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { BarChart3, Tag, Users, Settings, LogOut } from 'lucide-react'
+import { BarChart3, Tag, Users, Settings, LogOut, MapPin } from 'lucide-react'
 
 interface AdminSidebarProps {
   className?: string
@@ -17,6 +17,12 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
       href: '/admin',
       icon: BarChart3,
       current: pathname === '/admin'
+    },
+    {
+      name: 'Places',
+      href: '/admin/places',
+      icon: MapPin,
+      current: pathname === '/admin/places'
     },
     {
       name: 'Categories',
