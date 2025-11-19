@@ -5,6 +5,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import SideBarNavigation from "@/components/SideBarNavigation";
 import ClientOnly from "@/components/ClientOnly";
 import SessionProvider from "@/components/SessionProvider";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,7 +40,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <SessionProvider>
-          <div className="min-h-screen bg-gradient-to-br from-[#E0FCF6] via-[#E0FCF6] to-[#B8F5E8]" suppressHydrationWarning>
+          <BackgroundWrapper>
             <ClientOnly>
               <ErrorBoundary>
                 {/* <header className="max-w-7xl mx-auto flex justify-center items-center">
@@ -61,7 +62,7 @@ export default function RootLayout({
                 </main>
               </ErrorBoundary>
             </ClientOnly>
-          </div>
+          </BackgroundWrapper>
         </SessionProvider>
       </body>
     </html>
