@@ -18,27 +18,9 @@
       "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
     },
     {
-      "query": "milk-tea-shops",
-      "label": "milk tea shops",
-      "keyphrase": "top milk tea shops",
-      "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
-    },
-    {
-      "query": "diving-spots",
-      "label": "diving spots",
-      "keyphrase": "top diving spots",
-      "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
-    },
-    {
       "query": "tourist-inn",
       "label": "tourist inn",
       "keyphrase": "top tourist inn",
-      "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
-    },
-    {
-      "query": "delicacies",
-      "label": "delicacies",
-      "keyphrase": "top delicacies",
       "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
     },
     {
@@ -57,18 +39,6 @@
       "query": "car-rentals",
       "label": "car rentals",
       "keyphrase": "car rentals",
-      "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
-    },
-    {
-      "query": "golf-courses",
-      "label": "golf courses",
-      "keyphrase": "golf courses",
-      "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
-    },
-    {
-      "query": "politician",
-      "label": "politicians",
-      "keyphrase": "current politicians",
       "prompt": "List the top and most recommended <label> in the province of <selectedProvince> that is specifically located in <selectedLocation>"
     }
   ]  

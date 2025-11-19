@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
                 priority
               />
               <div className="flex flex-col lg:mt-28 mt-12">
-                <h1 className="lg:text-6xl text-4xl  font-bold text-gray-800 mb-2 lg:text-left text-center">
+                <h1 className="font-sans lg:text-6xl text-4xl font-bold text-gray-800 mb-2 lg:text-left text-center">
                   Explore{' '}
                   <span className="bg-gradient-to-r from-[#F7AE1D] to-[#FFB84D] bg-clip-text text-transparent">
                     Cebu
